@@ -23,15 +23,47 @@
   to { transform: rotate(360deg); }
 }
 
+.chess-piece {
+  font-weight: bold;
+  font-size:1.5em;
+  color:black;
+}
+
 .chess-square {
-  display: inline-block, table;
-  width:30px;
-  height:30px;
-  border-style:solid;
-  border-color:black;
-  text-align:justify;
+  display: table-cell;
+  outline: solid 1px #D4AF37;
+  width:2em;
+  height:2em;
+  text-align:center;
+  vertical-align: middle;
+  cursor: pointer;
+  cursor: hand;
+  -webkit-touch-callout: none;
+  -webkit-user-select:none;
+  -khtml-user-select:none;
+  -moz-user-select:none;
+  -ms-user-select:none;
+  user-select:none;
+}
+
+.red-square {
+  background-color: white;
+}
+
+.black-square {
+  background-color: gray;
 }
 
 .chess-rank {
   display: flex;
+}
+
+.chess-board {
+  border: solid 3px black;
+  outline: solid 3px #AAAAAA;
+}
+
+.centered {
+  display: table;
+  margin: 0 auto;
 }

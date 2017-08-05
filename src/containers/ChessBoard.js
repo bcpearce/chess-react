@@ -9,9 +9,11 @@ class ChessBoard extends Component {
   }
 
   renderSquare = (rankAndFile) => {
+    const even_or_odd = (rankAndFile[0].charCodeAt(0) + parseInt(rankAndFile[1], 10)) % 2;
+    const applyClass = (even_or_odd) ? "chess-square red-square": "chess-square black-square";
     return (
-      <div key={rankAndFile} className="chess-square">
-          {this.props.board[rankAndFile]}
+      <div key={rankAndFile} className={applyClass}>
+        <span className="chess-piece">{this.props.board[rankAndFile]}</span>
       </div>
     );
   }
@@ -28,7 +30,7 @@ class ChessBoard extends Component {
   render() {
     const ranks = [...Array(8).keys()].map(x => this.renderRank(x+1));
     return(
-      <div>
+      <div className="chess-board">
         {ranks}
       </div>
     );
