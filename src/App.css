@@ -22,3 +22,16 @@
   from { transform: rotate(0deg); }
   to { transform: rotate(360deg); }
 }
+
+.chess-square {
+  display: inline-block, table;
+  width:30px;
+  height:30px;
+  border-style:solid;
+  border-color:black;
+  text-align:justify;
+}
+
+.chess-rank {
+  display: flex;
+}

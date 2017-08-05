@@ -1,38 +1,41 @@
-import { Component } from 'react';
+import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
 class ChessBoard extends Component {
 
-  squareLabelsByRank(rank) {
+  squareLabelsByRank = (rank) => {
     //generates an array of the square indicators for a given rank (int)
     return [...Array(8).keys()].map(x => String.fromCharCode('A'.charCodeAt(0)+x)+rank)
   }
 
-  renderSquare(rankAndFile) {
-    <div key={rankAndFile} className="chess-square">
-      {this.props[rankAndFile]}
-    </div>
+  renderSquare = (rankAndFile) => {
+    return (
+      <div key={rankAndFile} className="chess-square">
+          {this.props.board[rankAndFile]}
+      </div>
+    );
   }
 
-  renderRank(rank) {
-    const squares = squareLabelsByRank(rank).map(this.renderSquare)
+  renderRank = (rank) => {
+    const squares = this.squareLabelsByRank(rank).map(this.renderSquare)
     return(
-      <div className="chess-square">
+      <div key={rank} className="chess-rank">
         {squares}
       </div>
     )
   }
 
   render() {
+    const ranks = [...Array(8).keys()].map(x => this.renderRank(x+1));
     return(
       <div>
-        {this.renderRank(1)}
+        {ranks}
       </div>
     );
   }
 }
 
-const mapStateToProps(state, ownProps) {
+const mapStateToProps = (state, ownProps) => {
   return {
     board:
     {A1: '♖',
