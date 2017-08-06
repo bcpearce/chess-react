@@ -19,6 +19,7 @@
   -moz-user-select:none;
   -ms-user-select:none;
   user-select:none;
+  transition: all .3s ease;
 }
 
 .red-square {
@@ -30,7 +31,7 @@
 }
 
 .selected-square {
-  background-color: yellow;
+  background-color: orange;
 }
 
 .chess-rank {
@@ -40,6 +41,7 @@
 .chess-board {
   border: solid 3px black;
   outline: solid 3px #AAAAAA;
+  transition: all .7s ease;
 }
 
 .centered {
@@ -53,6 +55,7 @@ div.info-block {
 
 div.check {
   outline: solid 3px red;
+  transition: all .7s ease;
 }
 
 span.check {

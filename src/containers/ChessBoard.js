@@ -10,7 +10,7 @@ class ChessBoard extends Component {
   }
 
   handleSelectSquare = (rankAndFile) => {
-    if (this.props.selectedSquare) {
+    if (this.props.selectedSquare && this.props.selectedSquare != rankAndFile) {
       const move = [this.props.selectedSquare, rankAndFile];
       this.props.dispatch(postMovePiece(
         this.props.game,
