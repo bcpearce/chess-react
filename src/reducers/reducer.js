@@ -73,7 +73,37 @@ const game = (state = {isFetching:false, serial:null}, action) => {
   }
 }
 
-const reducer = combineReducers({ board, selectedSquare, game });
+const check = (state = false, action) => {
+  switch(action.type) 
+  {
+    case RECEIVE_MOVE_PIECE:
+      return action.data.check;
+    default:
+      return state;
+  }
+}
+
+const player = (state = "white", action) => {
+  switch(action.type) 
+  {
+    case RECEIVE_MOVE_PIECE:
+      return action.data.player;
+    default:
+      return state;
+  }
+}
+
+const alert = (state = "", action) => {
+  switch(action.type)
+  {
+    case RECEIVE_MOVE_PIECE:
+      return (action.data.status !== 'OK') ? action.data.status:"";
+    default:
+      return state;
+  }
+}
+
+const reducer = combineReducers({ board, selectedSquare, game, check, player, alert });
 
 export default reducer;
 

@@ -46,3 +46,35 @@
   display: table;
   margin: 0 auto;
 }
+
+div.info-block {
+  text-align: center;
+}
+
+div.check {
+  outline: solid 3px red;
+}
+
+span.check {
+  text-transform: uppercase;
+}
+
+.player {
+  text-transform: capitalize;
+}
+
+div.new-game-wrapper {
+  padding-top: 5%;
+  padding-bottom: 5%;
+}
+
+button.new-game {
+  border-radius: 2px;
+  border: solid 3px #CCCCCC;
+  background: #FFFFFF;
+  transition: all .2s ease-in;
+}
+
+button.new-game:hover {
+  background: #EEEEEE;
+}

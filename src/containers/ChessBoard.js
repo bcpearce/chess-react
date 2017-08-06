@@ -10,7 +10,6 @@ class ChessBoard extends Component {
   }
 
   handleSelectSquare = (rankAndFile) => {
-    console.log(this.props.selectedSquare)
     if (this.props.selectedSquare) {
       const move = [this.props.selectedSquare, rankAndFile];
       this.props.dispatch(postMovePiece(
@@ -57,9 +56,33 @@ class ChessBoard extends Component {
 
   render() {
     const ranks = [...Array(8).keys()].reverse().map(x => this.renderRank(x+1));
+    var applyClass = 'chess-board';
+    if (this.props.check) {
+      applyClass += ' check';
+    }
+    applyClass += (this.props.player === "white") ? ' white-turn': ' black-turn';
     return(
-      <div className="chess-board">
-        {ranks}
+      <div>
+        <div className="centered new-game-wrapper">
+          <button className="new-game">
+            Start New Game
+          </button>
+        </div>
+        <div className={applyClass}>
+          {ranks}
+        </div>
+        <div className='info-block'>
+          <h5 className='player'>{this.props.player}'s turn</h5>
+          {this.props.check && 
+            <h6>
+              <span className='player'>{this.props.player} </span> 
+              Player is in <span className='check'>{this.props.check}</span>
+            </h6>
+          }
+          {this.props.alert &&
+            <h6 className='alert'>{this.props.alert}</h6>
+          }
+        </div>
       </div>
     );
   }
@@ -69,7 +92,10 @@ const mapStateToProps = (state, ownProps) => {
   return {
     selectedSquare:state.selectedSquare,
     board:state.board.items,
-    game:state.game.serial
+    game:state.game.serial,
+    check:state.check,
+    player:state.player,
+    alert:state.alert
   }
 }
 
