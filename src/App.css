@@ -54,6 +54,10 @@
   background-color: gray;
 }
 
+.selected-square {
+  background-color: yellow;
+}
+
 .chess-rank {
   display: flex;
 }

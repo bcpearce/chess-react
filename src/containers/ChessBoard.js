@@ -1,7 +1,16 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { selectSquare, fetchNewGame } from '../actions/actions';
 
 class ChessBoard extends Component {
+
+  componentWillMount() {
+    this.props.dispatch(fetchNewGame());
+  }
+
+  handleSelectSquare = (rankAndFile) => {
+    this.props.dispatch(selectSquare(rankAndFile));
+  }
 
   squareLabelsByRank = (rank) => {
     //generates an array of the square indicators for a given rank (int)
@@ -10,9 +19,15 @@ class ChessBoard extends Component {
 
   renderSquare = (rankAndFile) => {
     const even_or_odd = (rankAndFile[0].charCodeAt(0) + parseInt(rankAndFile[1], 10)) % 2;
-    const applyClass = (even_or_odd) ? "chess-square red-square": "chess-square black-square";
+    var applyClass ="chess-square" 
+    if (this.props.selectedSquare === rankAndFile) {
+      applyClass += " selected-square";
+    } else {
+      applyClass += (even_or_odd) ? " red-square": " black-square";
+    }
     return (
-      <div key={rankAndFile} className={applyClass}>
+      <div key={rankAndFile} className={applyClass}
+        onClick={() => this.handleSelectSquare(rankAndFile)}>
         <span className="chess-piece">{this.props.board[rankAndFile]}</span>
       </div>
     );
@@ -39,71 +54,8 @@ class ChessBoard extends Component {
 
 const mapStateToProps = (state, ownProps) => {
   return {
-    board:
-    {A1: '♖',
-     A2: '♙',
-     A3: ' ',
-     A4: ' ',
-     A5: ' ',
-     A6: ' ',
-     A7: '♟',
-     A8: '♜',
-     B1: '♘',
-     B2: '♙',
-     B3: ' ',
-     B4: ' ',
-     B5: ' ',
-     B6: ' ',
-     B7: '♟',
-     B8: '♞',
-     C1: '♗',
-     C2: '♙',
-     C3: ' ',
-     C4: ' ',
-     C5: ' ',
-     C6: ' ',
-     C7: '♟',
-     C8: '♝',
-     D1: '♕',
-     D2: '♙',
-     D3: ' ',
-     D4: ' ',
-     D5: ' ',
-     D6: ' ',
-     D7: '♟',
-     D8: '♛',
-     E1: '♔',
-     E2: '♙',
-     E3: ' ',
-     E4: ' ',
-     E5: ' ',
-     E6: ' ',
-     E7: '♟',
-     E8: '♚',
-     F1: '♗',
-     F2: '♙',
-     F3: ' ',
-     F4: ' ',
-     F5: ' ',
-     F6: ' ',
-     F7: '♟',
-     F8: '♝',
-     G1: '♘',
-     G2: '♙',
-     G3: ' ',
-     G4: ' ',
-     G5: ' ',
-     G6: ' ',
-     G7: '♟',
-     G8: '♞',
-     H1: '♖',
-     H2: '♙',
-     H3: ' ',
-     H4: ' ',
-     H5: ' ',
-     H6: ' ',
-     H7: '♟',
-     H8: '♜' }
+    selectedSquare:state.selectedSquare,
+    board:state.board.items
   }
 }
 
