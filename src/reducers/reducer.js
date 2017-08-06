@@ -14,7 +14,7 @@ const board = (state = {isFetching:false, items:{}}, action) => {
     case REQUEST_MOVE_PIECE:
       return {
         isFetching:true,
-        items:{}
+        items:state.items
       }
     case RECEIVE_NEW_GAME:
       return {
