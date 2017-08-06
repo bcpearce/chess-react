@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { selectSquare, fetchNewGame, postMovePiece } from '../actions/actions';
+import '../css/ChessBoard.css'
 
 class ChessBoard extends Component {
 
@@ -55,7 +56,7 @@ class ChessBoard extends Component {
   }
 
   render() {
-    const ranks = [...Array(8).keys()].map(x => this.renderRank(x+1));
+    const ranks = [...Array(8).keys()].reverse().map(x => this.renderRank(x+1));
     return(
       <div className="chess-board">
         {ranks}

@@ -45,7 +45,6 @@ export const requestMovePiece = () => {
 }
 
 export const receiveMovePiece = (data) => {
-  console.log(data);
   return {
     type: RECEIVE_MOVE_PIECE,
     data
