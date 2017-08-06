@@ -86,6 +86,8 @@ const check = (state = false, action) => {
 const player = (state = "white", action) => {
   switch(action.type) 
   {
+    case RECEIVE_NEW_GAME:
+      return "white"
     case RECEIVE_MOVE_PIECE:
       return action.data.player;
     default:

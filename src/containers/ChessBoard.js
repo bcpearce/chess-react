@@ -24,6 +24,10 @@ class ChessBoard extends Component {
     ));
   }
 
+  handleNewGame = () => {
+    this.props.dispatch(fetchNewGame());
+  }
+
   squareLabelsByRank = (rank) => {
     //generates an array of the square indicators for a given rank (int)
     return [...Array(8).keys()].map(x => String.fromCharCode('A'.charCodeAt(0)+x)+rank)
@@ -64,7 +68,7 @@ class ChessBoard extends Component {
     return(
       <div>
         <div className="centered new-game-wrapper">
-          <button className="new-game">
+          <button className="new-game" onClick={this.handleNewGame}>
             Start New Game
           </button>
         </div>
