@@ -3,6 +3,8 @@ export const REQUEST_NEW_GAME = 'REQUEST_NEW_GAME';
 export const RECEIVE_NEW_GAME = 'RECEIVE_NEW_GAME';
 export const REQUEST_MOVE_PIECE = 'REQUEST_MOVE_PIECE';
 export const RECEIVE_MOVE_PIECE = 'RECEIVE_MOVE_PIECE';
+export const REQUEST_PROMOTE_PIECE = 'REQUEST_PROMOTE_PIECE';
+export const RECEIVE_PROMOTE_PIECE = 'RECEIVE_PROMOTE_PIECE';
 
 var api = require('./api');
 
@@ -58,5 +60,28 @@ export const postMovePiece = (game, move) => {
     return api.makeMove(game, move)
       .then(response => response.data)
       .then(data => dispatch(receiveMovePiece(data)));
+  }
+}
+
+//promoting pieces
+export const requestPromotePiece = () => {
+  return {
+    type: REQUEST_PROMOTE_PIECE
+  }
+}
+
+export const receivePromotePiece = (data) => {
+  return {
+    type: RECEIVE_PROMOTE_PIECE,
+    data
+  }
+}
+
+export const postPromotePiece = (game, piece) => {
+  return dispatch => {
+    dispatch(requestPromotePiece());
+    return api.promotePiece(game, piece)
+      .then(response => response.data)
+      .then(data => dispatch(receivePromotePiece(data)));
   }
 }

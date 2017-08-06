@@ -4,7 +4,9 @@ import {
   REQUEST_NEW_GAME, 
   RECEIVE_NEW_GAME,
   REQUEST_MOVE_PIECE,
-  RECEIVE_MOVE_PIECE 
+  RECEIVE_MOVE_PIECE,
+  REQUEST_PROMOTE_PIECE,
+  RECEIVE_PROMOTE_PIECE,
 } from '../actions/actions';
 
 const board = (state = {isFetching:false, items:{}}, action) => {
@@ -12,6 +14,7 @@ const board = (state = {isFetching:false, items:{}}, action) => {
   {
     case REQUEST_NEW_GAME:
     case REQUEST_MOVE_PIECE:
+    case REQUEST_PROMOTE_PIECE:
       return {
         isFetching:true,
         items:state.items
@@ -22,6 +25,7 @@ const board = (state = {isFetching:false, items:{}}, action) => {
         items:action.data.board
       }
     case RECEIVE_MOVE_PIECE:
+    case RECEIVE_PROMOTE_PIECE:
       return {
         isFetching:false,
         items:action.data.game.board
@@ -54,6 +58,7 @@ const game = (state = {isFetching:false, serial:null}, action) => {
   {
     case REQUEST_NEW_GAME:
     case REQUEST_MOVE_PIECE:
+    case REQUEST_PROMOTE_PIECE:
       return {
         isFetching:true,
         serial:null
@@ -64,6 +69,7 @@ const game = (state = {isFetching:false, serial:null}, action) => {
         serial:action.data.serial
       }
     case RECEIVE_MOVE_PIECE:
+    case RECEIVE_PROMOTE_PIECE:
       return {
         isFetching:false,
         serial:action.data.game.serial
@@ -77,6 +83,7 @@ const check = (state = false, action) => {
   switch(action.type) 
   {
     case RECEIVE_MOVE_PIECE:
+    case RECEIVE_PROMOTE_PIECE:
       return action.data.check;
     default:
       return state;
@@ -105,7 +112,29 @@ const alert = (state = "", action) => {
   }
 }
 
-const reducer = combineReducers({ board, selectedSquare, game, check, player, alert });
+const promotion = (state = null, action) => {
+  switch(action.type) 
+  {
+    case RECEIVE_MOVE_PIECE:
+      return action.data.promote;
+    case RECEIVE_NEW_GAME:
+    case RECEIVE_PROMOTE_PIECE:
+      return null;
+    default:
+      return state;
+  }
+}
+
+const reducer = combineReducers(
+  { 
+    board, 
+    selectedSquare, 
+    game, 
+    check, 
+    player, 
+    alert, 
+    promotion 
+  });
 
 export default reducer;
 

@@ -1,6 +1,11 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { selectSquare, fetchNewGame, postMovePiece } from '../actions/actions';
+import { 
+  selectSquare, 
+  fetchNewGame, 
+  postMovePiece, 
+  postPromotePiece 
+} from '../actions/actions';
 import '../css/ChessBoard.css'
 
 class ChessBoard extends Component {
@@ -10,22 +15,30 @@ class ChessBoard extends Component {
   }
 
   handleSelectSquare = (rankAndFile) => {
-    if (this.props.selectedSquare && this.props.selectedSquare != rankAndFile) {
-      const move = [this.props.selectedSquare, rankAndFile];
-      this.props.dispatch(postMovePiece(
-        this.props.game,
-        move
+    if (!this.props.promotion) {
+      //only handle square selection if a promotion isn't pending
+      if (this.props.selectedSquare && this.props.selectedSquare !== rankAndFile) {
+        const move = [this.props.selectedSquare, rankAndFile];
+        this.props.dispatch(postMovePiece(
+          this.props.game,
+          move
+        ));
+      }
+      this.props.dispatch(selectSquare(
+        rankAndFile, 
+        this.props.board[rankAndFile],
+        this.props.selectedSquare
       ));
     }
-    this.props.dispatch(selectSquare(
-      rankAndFile, 
-      this.props.board[rankAndFile],
-      this.props.selectedSquare
-    ));
   }
 
   handleNewGame = () => {
     this.props.dispatch(fetchNewGame());
+  }
+
+  handlePromote = (piece) => {
+    console.log(this.props.game);
+    this.props.dispatch(postPromotePiece(this.props.game, piece));
   }
 
   squareLabelsByRank = (rank) => {
@@ -76,7 +89,9 @@ class ChessBoard extends Component {
           {ranks}
         </div>
         <div className='info-block'>
-          <h5 className='player'>{this.props.player}'s turn</h5>
+          {!this.props.promotion /*only if no pending promotion*/ &&
+            <h5 className='player'>{this.props.player}'s turn</h5>
+          }
           {this.props.check && 
             <h6>
               <span className='player'>{this.props.player} </span> 
@@ -85,6 +100,23 @@ class ChessBoard extends Component {
           }
           {this.props.alert &&
             <h6 className='alert'>{this.props.alert}</h6>
+          }
+          {this.props.promotion && 
+            <div>
+              <h5>Select a piece to promote to</h5>
+              <button role="button"
+                className="promote-button" 
+                onClick={() => this.handlePromote('rook')}>♖</button>
+              <button 
+                className="promote-button"
+                onClick={() => this.handlePromote('knight')}>♘</button>
+              <button 
+                className="promote-button" 
+                onClick={() => this.handlePromote('bishop')}>♗</button>
+              <button role="button"
+                className="promote-button" 
+                onClick={() => this.handlePromote('queen')}>♕</button>
+            </div>
           }
         </div>
       </div>
@@ -99,7 +131,8 @@ const mapStateToProps = (state, ownProps) => {
     game:state.game.serial,
     check:state.check,
     player:state.player,
-    alert:state.alert
+    alert:state.alert,
+    promotion:state.promotion,
   }
 }
 

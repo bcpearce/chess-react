@@ -10,6 +10,10 @@ module.exports =
   },
 
   makeMove: (game, move) => {
-    return api.post("/game/move", {serial:game, move:move})
+    return api.post("/game/move", {serial:game, move:move});
+  },
+
+  promotePiece: (game, piece) => {
+    return api.post("/game/promote", {serial:game, piece:piece});
   }
 }

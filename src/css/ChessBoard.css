@@ -81,3 +81,11 @@ button.new-game {
 button.new-game:hover {
   background: #EEEEEE;
 }
+
+button.promote-button {
+  border-radius: 2px;
+  border: solid 3px #CCCCCC;
+  background: #FFFFFF;
+  transition: all .2s ease-in;
+  font-size:2em;
+}
