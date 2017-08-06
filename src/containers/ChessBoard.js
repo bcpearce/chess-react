@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { selectSquare, fetchNewGame } from '../actions/actions';
+import { selectSquare, fetchNewGame, postMovePiece } from '../actions/actions';
 
 class ChessBoard extends Component {
 
@@ -9,7 +9,19 @@ class ChessBoard extends Component {
   }
 
   handleSelectSquare = (rankAndFile) => {
-    this.props.dispatch(selectSquare(rankAndFile));
+    console.log(this.props.selectedSquare)
+    if (this.props.selectedSquare) {
+      const move = [this.props.selectedSquare, rankAndFile];
+      this.props.dispatch(postMovePiece(
+        this.props.game,
+        move
+      ));
+    }
+    this.props.dispatch(selectSquare(
+      rankAndFile, 
+      this.props.board[rankAndFile],
+      this.props.selectedSquare
+    ));
   }
 
   squareLabelsByRank = (rank) => {
@@ -55,7 +67,8 @@ class ChessBoard extends Component {
 const mapStateToProps = (state, ownProps) => {
   return {
     selectedSquare:state.selectedSquare,
-    board:state.board.items
+    board:state.board.items,
+    game:state.game.serial
   }
 }
 

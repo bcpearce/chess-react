@@ -1,12 +1,15 @@
 export const SELECT_SQUARE = 'SELECT_SQUARE';
 export const REQUEST_NEW_GAME = 'REQUEST_NEW_GAME';
 export const RECEIVE_NEW_GAME = 'RECEIVE_NEW_GAME';
+export const REQUEST_MOVE_PIECE = 'REQUEST_MOVE_PIECE';
+export const RECEIVE_MOVE_PIECE = 'RECEIVE_MOVE_PIECE';
 
 var api = require('./api');
 
-export const selectSquare = (rankAndFile) => {
+export const selectSquare = (rankAndFile, piece) => {
   return {
     type:SELECT_SQUARE,
+    piece,
     rankAndFile
   }
 }
@@ -27,10 +30,33 @@ export const receiveNewGame = (data) => {
 
 export const fetchNewGame = () => {
   return dispatch => {
-    console.log(api);
     dispatch(requestNewGame());
     return api.requestNewGame()
       .then(response => response.data)
       .then(data => dispatch(receiveNewGame(data)));
+  }
+}
+
+//moving pieces 
+export const requestMovePiece = () => {
+  return {
+    type: REQUEST_MOVE_PIECE
+  }
+}
+
+export const receiveMovePiece = (data) => {
+  console.log(data);
+  return {
+    type: RECEIVE_MOVE_PIECE,
+    data
+  }
+}
+
+export const postMovePiece = (game, move) => {
+  return dispatch => {
+    dispatch(requestMovePiece());
+    return api.makeMove(game, move)
+      .then(response => response.data)
+      .then(data => dispatch(receiveMovePiece(data)));
   }
 }
