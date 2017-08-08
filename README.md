@@ -2,7 +2,18 @@
 
 This is a React Frontend for [Sinatra Chess](https://github.com/bcpearce/sinatra-chess/tree/stateless) which has been modified in its "stateless" branch to support a JSON API.
 
-MORE INFO COMING SOON.
+## Running
+
+Follow instructions in [Sinatra Chess](https://github.com/bcpearce/sinatra-chess/tree/stateless) for launching the backend service.  You must use the branch 'stateless'.
+
+Create a file `.env.local` in the the frontend project root and set the following system variables
+
+```
+REACT_APP_API_HOST="http://[hostname of Sinatra Chess App]"
+REACT_APP_API_ROUTE="/api/v1"
+```
+
+To launch the frontend, from the project root, start the application with `npm start`.  Navigate to the newly created webserver to play chess.
 
 # Create React App Notes
 
