@@ -75,7 +75,7 @@ button.new-game {
   border-radius: 2px;
   border: solid 3px #CCCCCC;
   background: #FFFFFF;
-  transition: all .2s ease-in;
+  transition: all .2s ease;
 }
 
 button.new-game:hover {
@@ -83,9 +83,14 @@ button.new-game:hover {
 }
 
 button.promote-button {
-  border-radius: 2px;
+  border-radius: 4px;
   border: solid 3px #CCCCCC;
   background: #FFFFFF;
-  transition: all .2s ease-in;
-  font-size:2em;
+  transition: all .2s ease;
+  font-size:1.7em;
+}
+
+
+button.promote-button:hover {
+  background: #EEEEEE;
 }

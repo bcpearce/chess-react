@@ -85,6 +85,8 @@ const check = (state = false, action) => {
     case RECEIVE_MOVE_PIECE:
     case RECEIVE_PROMOTE_PIECE:
       return action.data.check;
+    case RECEIVE_NEW_GAME:
+      return false
     default:
       return state;
   }
@@ -106,7 +108,10 @@ const alert = (state = "", action) => {
   switch(action.type)
   {
     case RECEIVE_MOVE_PIECE:
+    case RECEIVE_PROMOTE_PIECE:
       return (action.data.status !== 'OK') ? action.data.status:"";
+    case RECEIVE_NEW_GAME:
+      return ""
     default:
       return state;
   }

@@ -104,7 +104,7 @@ class ChessBoard extends Component {
           {this.props.promotion && 
             <div>
               <h5>Select a piece to promote to</h5>
-              <button role="button"
+              <button
                 className="promote-button" 
                 onClick={() => this.handlePromote('rook')}>♖</button>
               <button 
@@ -113,7 +113,7 @@ class ChessBoard extends Component {
               <button 
                 className="promote-button" 
                 onClick={() => this.handlePromote('bishop')}>♗</button>
-              <button role="button"
+              <button
                 className="promote-button" 
                 onClick={() => this.handlePromote('queen')}>♕</button>
             </div>
